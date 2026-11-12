@@ -1,0 +1,665 @@
+/* ===================================================
+   RESET & BASE
+   =================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #111;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===================================================
+   TELA 1 — TÍTULO (MENU INICIAL)
+   =================================================== */
+#title-screen {
+  position: fixed;
+  inset: 0;
+  background: #111; /* fallback caso o vídeo não carregue */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+#title-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+#title-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5vh;
+  z-index: 2;
+}
+
+#game-title {
+  width: 45vw;
+  max-width: 700px;
+  height: auto;
+  image-rendering: auto;
+  animation: playBounce 1.5s steps(1) infinite;
+}
+
+#play-btn {
+  width: 500px;
+  height: auto;
+  image-rendering: auto;
+  animation: playBounce 0.8s steps(1) infinite;
+}
+
+@keyframes playBounce {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+
+/* ===================================================
+   TELA 2 — SELEÇÃO DE MÚSICA
+   =================================================== */
+#song-select-screen {
+  position: fixed;
+  inset: 0;
+  background: #7B3F8D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+}
+
+#song-select-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vh;
+  z-index: 2;
+}
+
+/* Setas de navegação - posicionadas nas laterais do card */
+.song-arrow {
+  position: absolute;
+  top: 30%;
+  transform: translateY(-50%);
+  width: 6vh;
+  height: 6vh;
+  cursor: pointer;
+  image-rendering: auto;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.15s;
+  z-index: 5;
+  filter: brightness(1.5);
+}
+
+.song-arrow-left {
+  left: -8vh;
+}
+
+.song-arrow-right {
+  right: -8vh;
+}
+
+.song-arrow:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.song-arrow:active {
+  transform: scale(0.9);
+}
+
+#song-card-img {
+  width: 30vw;
+  height: auto;
+  image-rendering: auto;
+  animation: playBounce 1.2s steps(1) infinite;
+  animation-delay: -0.3s;
+}
+
+#start-song-btn {
+  width: 18vw;
+  height: auto;
+  cursor: pointer;
+  image-rendering: auto;
+  transition: transform 0.1s, filter 0.2s;
+  animation: playBounce 0.8s steps(1) infinite;
+}
+
+#start-song-btn:hover {
+  filter: brightness(1.2);
+}
+
+#start-song-btn:active {
+  transform: scale(0.95);
+}
+
+/* ===================================================
+   OVERLAY DE PAUSA
+   =================================================== */
+#pause-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(2px);
+}
+
+#pause-overlay.hidden {
+  display: none;
+}
+
+#pause-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#menu-btn {
+  width: 22vw;
+  max-width: 380px;
+  height: auto;
+  cursor: pointer;
+  image-rendering: auto;
+  transition: transform 0.1s, filter 0.2s;
+  animation: playBounce 0.8s steps(1) infinite;
+}
+
+#menu-btn:hover {
+  filter: brightness(1.25);
+}
+
+#menu-btn:active {
+  transform: scale(0.94);
+}
+
+#volume-control {
+  position: absolute;
+  top: 3.5vh;
+  right: 3.5vw;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(20, 10, 30, 0.75);
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 2px solid rgba(224, 192, 240, 0.35);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+}
+
+#volume-icon {
+  font-size: 22px;
+  user-select: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.1s;
+}
+
+#volume-icon:hover {
+  transform: scale(1.15);
+}
+
+#volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 130px;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#volume-slider:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e0c0f0;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(224, 192, 240, 0.8);
+  transition: transform 0.1s;
+}
+
+#volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+#volume-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e0c0f0;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 8px rgba(224, 192, 240, 0.8);
+}
+
+#volume-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #e0c0f0;
+  min-width: 45px;
+  text-align: right;
+  font-family: monospace;
+  user-select: none;
+}
+
+/* ===================================================
+   TELA 3 — JOGO
+   =================================================== */
+#game-screen {
+  position: fixed;
+  inset: 0;
+  background: #111 url('carroselextendido.png') no-repeat center center;
+  background-size: cover;
+}
+
+#game-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ===================================================
+   PERSONAGEM YOTSUBA
+   =================================================== */
+#yotsuba-container { position: absolute; bottom: 4vh; left: -10vw; z-index: 50; pointer-events: none; user-select: none; }
+
+#yotsuba-sprite {
+  width: 60vh;
+  height: auto;
+  display: block;
+  image-rendering: auto;
+}
+
+/* ===================================================
+   PERSONAGEM ITSUKA
+   ===================================================  */
+#itsuka-container { position: absolute; bottom: 4vh; left: 2vw; z-index: 50; pointer-events: none; user-select: none; }
+
+#itsuka-sprite {
+  width: 60vh;
+  height: auto;
+  display: block;
+  image-rendering: auto;
+}
+
+/* ===================================================
+   PERSONAGEM ICHIKA
+   =================================================== */
+#ichika-container { position: absolute; bottom: 4vh; left: 12vw; z-index: 50; pointer-events: none; user-select: none; }
+
+#ichika-sprite {
+  width: 60vh;
+  height: auto;
+  display: block;
+  image-rendering: auto;
+}
+
+/* ===================================================
+   PERSONAGEM MIKU
+   =================================================== */
+#miku-container { position: absolute; bottom: 4vh; left: 21vw; z-index: 50; pointer-events: none; user-select: none; }
+
+#miku-sprite {
+  width: 60vh;
+  height: auto;
+  display: block;
+  image-rendering: auto;
+}
+
+/* ===================================================
+   PERSONAGEM NINO
+   =================================================== */
+#nino-container { position: absolute; bottom: 4vh; left: 30vw; z-index: 50; pointer-events: none; user-select: none; }
+
+#nino-sprite {
+  width: 60vh;
+  height: auto;
+  display: block;
+  image-rendering: auto;
+}
+
+
+/* ===================================================
+   HUD — Pontuação e Combo
+   =================================================== */
+
+/* --- Ajustes de posição dos personagens no cenário Starry --- */
+.starry-stage #yotsuba-container { bottom: -2vh; left: -4vw; }
+.starry-stage #itsuka-container  { bottom: -2vh; left: 8vw; }
+.starry-stage #ichika-container  { bottom: -2vh; left: 18vw; }
+.starry-stage #miku-container    { bottom: -2vh; left: 27vw; }
+.starry-stage #nino-container    { bottom: -2vh; left: 36vw; }
+
+/* --- Ajustes de posição dos personagens no cenário Palco --- */
+.palco-stage #yotsuba-container { bottom: 45vh; left: 30vw; }
+.palco-stage #itsuka-container  { bottom: 45vh; left: 37vw; }
+.palco-stage #ichika-container  { bottom: 45vh; left: 44vw; }
+.palco-stage #miku-container    { bottom: 45vh; left: 51vw; }
+.palco-stage #nino-container    { bottom: 45vh; left: 58vw; }
+
+.palco-stage #yotsuba-sprite,
+.palco-stage #itsuka-sprite,
+.palco-stage #ichika-sprite,
+.palco-stage #miku-sprite,
+.palco-stage #nino-sprite {
+  width: 25vh;
+}
+
+#hud { position: absolute; top: 2vh; left: 50%; transform: translateX(-50%); display: flex; gap: 4vw; z-index: 100; user-select: none; }
+
+#score-display,
+#combo-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hud-label {
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: #999;
+  text-transform: uppercase;
+}
+
+#score-value,
+#combo-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ===================================================
+   ÁREA DO JOGO
+   =================================================== */
+#game-area { position: absolute; right: 10vw; bottom: 0; display: flex; gap: 1vw; height: 100%; align-items: flex-end; padding: 0 1vw 4vh 1vw; background-color: rgba(0, 0, 0, 0.4); }
+
+/* Cada coluna (lane) */
+.lane { position: relative; width: 10vh; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+
+/* Container das notas que caem — ocupa toda a lane */
+.notes-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ===================================================
+   RECEPTORES (setas claras fixas)
+   =================================================== */
+.receptor-wrapper { position: relative; width: 10vh; height: 10vh; z-index: 10; flex-shrink: 0; }
+
+.receptor {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.6;
+  transition: transform 0.08s ease-out, opacity 0.08s ease-out;
+}
+
+/* Animação de escala ao pressionar a tecla */
+.receptor.pressed {
+  transform: scale(1.25);
+  opacity: 1;
+}
+
+/* ===================================================
+   NOTAS (setas escuras que caem)
+   =================================================== */
+.note { position: absolute; width: 10vh; height: 10vh; left: 50%; transform: translateX(-50%); pointer-events: none; }
+
+.note img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ===================================================
+   FEEDBACK DE JULGAMENTO
+   =================================================== */
+#judgement-feedback {
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+}
+
+/* Subtext (+100, +50, +0) */
+#judgement-feedback .points {
+  display: block;
+  font-size: 16px;
+  letter-spacing: 2px;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+/* --- Estilos por tipo de julgamento --- */
+#judgement-feedback.perfect {
+  color: #FFD700;
+  text-shadow:
+    0 0 10px #FFD700,
+    0 0 20px #FFA500,
+    0 0 40px #FF8C00;
+  font-size: 36px;
+  animation: feedbackPop 0.35s ease-out;
+}
+
+#judgement-feedback.early {
+  color: #3CB4FF;
+  text-shadow: 0 0 8px rgba(60, 180, 255, 0.6);
+  font-size: 26px;
+  animation: feedbackSmall 0.3s ease-out;
+}
+
+#judgement-feedback.late {
+  color: #FF7043;
+  text-shadow: 0 0 8px rgba(255, 112, 67, 0.6);
+  font-size: 26px;
+  animation: feedbackSmall 0.3s ease-out;
+}
+
+#judgement-feedback.miss {
+  color: #FF3333;
+  text-shadow: 0 0 6px rgba(255, 50, 50, 0.5);
+  font-size: 22px;
+  opacity: 0.85;
+  animation: feedbackMiss 0.4s ease-out;
+}
+
+/* ===================================================
+   ANIMAÇÕES
+   =================================================== */
+@keyframes feedbackPop {
+  0% {
+    transform: translateX(-50%) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes feedbackSmall {
+  0% {
+    transform: translateX(-50%) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes feedbackMiss {
+  0% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(-50%) scale(0.95);
+    opacity: 0.7;
+  }
+}
+
+/* ===================================================
+   OVERLAY ICHIKA (COMBO 30)
+   =================================================== */
+
+/* ===================================================
+   TELA DE RESULTADO (fim da música)
+   =================================================== */
+#result-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 998;
+  backdrop-filter: blur(4px);
+}
+
+#result-overlay.hidden {
+  display: none;
+}
+
+#result-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+  z-index: 999;
+}
+
+#result-title {
+  font-size: 5vh;
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: #FFD700;
+  text-shadow: 0 0 15px #FFD700, 0 0 30px #FFA500;
+  margin-bottom: 2vh;
+}
+
+#result-score-label,
+#result-combo-label {
+  font-size: 2vh;
+  letter-spacing: 4px;
+  color: #bbb;
+  text-transform: uppercase;
+}
+
+#result-score-value {
+  font-size: 6vh;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+#result-combo-value {
+  font-size: 4vh;
+  font-weight: 700;
+  color: #e0c0f0;
+  text-shadow: 0 0 8px rgba(224,192,240,0.5);
+  margin-bottom: 2vh;
+}
+
+#result-menu-btn {
+  width: 18vw;
+  max-width: 300px;
+  height: auto;
+  cursor: pointer;
+  image-rendering: auto;
+  transition: transform 0.1s, filter 0.2s;
+  animation: playBounce 0.8s steps(1) infinite;
+}
+
+#result-menu-btn:hover {
+  filter: brightness(1.25);
+}
+
+#result-menu-btn:active {
+  transform: scale(0.94);
+}
+
+#ichika-combo-overlay { position: absolute; bottom: 0; left: 0; height: 95vh; width: auto; opacity: 0; pointer-events: none; z-index: 50; transform: translateX(-100%); }
+
+#ichika-combo-overlay.animate {
+  animation: ichikaComboSlide 6s ease-in-out forwards;
+}
+
+@keyframes ichikaComboSlide {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  15% {
+    transform: translateX(80px); /* Parada mais à esquerda */
+    opacity: 0.35;
+  }
+  85% {
+    transform: translateX(115px); /* Move bem devagar */
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateX(1920px); /* Sai pela direita */
+    opacity: 0;
+  }
+}

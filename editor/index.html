@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gêmeas Game — Editor de Chart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== TOOLBAR ========== -->
+  <div id="toolbar">
+    <div class="toolbar-group">
+      <label class="btn btn-primary">
+        🎵 Carregar Música
+        <input type="file" id="music-input" accept="audio/*" hidden>
+      </label>
+      <button id="play-pause-btn" class="btn" disabled>▶ Play</button>
+      <button id="stop-btn" class="btn" disabled>⏹ Stop</button>
+    </div>
+
+    <div class="toolbar-group time-group">
+      <span id="current-time" class="time-display">00:00.000</span>
+      <input type="range" id="seek-bar" min="0" max="1000" value="0" step="1" disabled>
+      <span id="total-time" class="time-display">00:00.000</span>
+    </div>
+
+    <div class="toolbar-group">
+      <button id="save-btn" class="btn btn-save">💾 Salvar Chart</button>
+      <label class="btn">
+        📂 Carregar Chart
+        <input type="file" id="chart-input" accept=".json" hidden>
+      </label>
+      <button id="clear-btn" class="btn btn-danger">🗑 Limpar</button>
+      <button id="test-btn" class="btn btn-test" disabled>🎮 Testar</button>
+    </div>
+  </div>
+
+  <!-- ========== INFO BAR ========== -->
+  <div id="info-bar">
+    <span id="note-count">Notas: 0</span>
+    <span id="song-name-display">Nenhuma música carregada</span>
+    <span id="selected-info">Nenhuma nota selecionada</span>
+  </div>
+
+  <!-- ========== INSTRUCTIONS ========== -->
+  <div id="instructions">
+    <kbd>A</kbd> ← &nbsp;
+    <kbd>S</kbd> ↓ &nbsp;
+    <kbd>W</kbd> ↑ &nbsp;
+    <kbd>D</kbd> → &nbsp; | &nbsp;
+    <kbd>Espaço</kbd> Play/Pause &nbsp; | &nbsp;
+    <kbd>Del</kbd> Apagar nota &nbsp; | &nbsp;
+    <kbd>←</kbd><kbd>→</kbd> Mover ±10ms
+  </div>
+
+  <!-- ========== EDITOR AREA ========== -->
+  <div id="editor-area">
+    <!-- Lane headers (fixas no topo) -->
+    <div id="lane-headers">
+      <div class="lane-hdr lh-left">←</div>
+      <div class="lane-hdr lh-down">↓</div>
+      <div class="lane-hdr lh-up">↑</div>
+      <div class="lane-hdr lh-right">→</div>
+    </div>
+
+    <!-- Timeline scrollável -->
+    <div id="timeline-scroll">
+      <div id="timeline">
+        <div id="playback-cursor"></div>
+        <!-- Notas serão renderizadas aqui -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TEST MODE OVERLAY ========== -->
+  <div id="test-overlay" class="hidden">
+    <div id="test-header">
+      <span>🎮 MODO TESTE</span>
+      <button id="exit-test-btn" class="btn btn-danger">✕ Sair</button>
+    </div>
+    <div id="test-game-area">
+      <div class="test-lane" data-dir="left">
+        <div class="test-notes-container"></div>
+        <div class="test-receptor">←</div>
+      </div>
+      <div class="test-lane" data-dir="down">
+        <div class="test-notes-container"></div>
+        <div class="test-receptor">↓</div>
+      </div>
+      <div class="test-lane" data-dir="up">
+        <div class="test-notes-container"></div>
+        <div class="test-receptor">↑</div>
+      </div>
+      <div class="test-lane" data-dir="right">
+        <div class="test-notes-container"></div>
+        <div class="test-receptor">→</div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio-player"></audio>
+  <script src="editor.js"></script>
+</body>
+</html>

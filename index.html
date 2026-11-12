@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gêmeas Game — Sistema de Notas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =============================================
+       TELA 1 — TÍTULO (MENU INICIAL)
+       ============================================= -->
+  <div id="title-screen">
+    <video id="title-bg-video" src="escola sem nuvens.mp4" autoplay loop muted playsinline onloadeddata="this.playbackRate=0.6"></video>
+    <div id="title-content">
+      <img id="game-title" src="quintuplets beat titulo.png" alt="Quintuplets Beat">
+      <img id="play-btn" src="play.png" alt="Play">
+    </div>
+  </div>
+
+  <!-- =============================================
+       TELA 2 — SELEÇÃO DE MÚSICA
+       ============================================= -->
+  <div id="song-select-screen" class="hidden">
+    <div id="song-select-content">
+      <img id="song-arrow-left" class="song-arrow song-arrow-left" src="seta sem cor esquerda.png" alt="Anterior">
+      <img id="song-card-img" src="selecione a musica.png" alt="Day 1 - Red Velvet" data-song="day1">
+      <img id="song-arrow-right" class="song-arrow song-arrow-right" src="seta sem cor direita.png" alt="Próxima">
+      <img id="start-song-btn" src="botao_musica.png" alt="JOGAR">
+    </div>
+  </div>
+
+  <!-- =============================================
+       TELA 3 — JOGO
+       ============================================= -->
+  <div id="game-screen" class="hidden">
+    <div id="game-wrapper">
+
+      <!-- HUD: Pontuação e Combo -->
+      <div id="hud">
+        <div id="score-display">
+          <span class="hud-label">SCORE</span>
+          <span id="score-value">0</span>
+        </div>
+        <div id="combo-display">
+          <span class="hud-label">COMBO</span>
+          <span id="combo-value">0</span>
+        </div>
+      </div>
+
+      <!-- Personagem Yotsuba -->
+      <div id="yotsuba-container">
+        <img id="yotsuba-sprite" src="yotsuba.png" alt="Yotsuba">
+      </div>
+
+      <!-- Personagem Itsuka -->
+      <div id="itsuka-container">
+        <img id="itsuka-sprite" src="itsuka.png" alt="Itsuka">
+      </div>
+
+      <!-- Personagem Ichika -->
+      <div id="ichika-container">
+        <img id="ichika-sprite" src="ichika.png" alt="Ichika">
+      </div>
+
+      <!-- Personagem Miku -->
+      <div id="miku-container">
+        <img id="miku-sprite" src="miku.png" alt="Miku">
+      </div>
+
+      <!-- Personagem Nino -->
+      <div id="nino-container">
+        <img id="nino-sprite" src="nino.png" alt="Nino">
+      </div>
+
+      <!-- Overlay de Combo 30 da Ichika -->
+      <img id="ichika-combo-overlay" src="pradepois.png" alt="Ichika Combo">
+
+      <!-- Área principal do jogo -->
+      <div id="game-area">
+
+        <!-- Feedback de julgamento (PERFECT / EARLY / LATE / MISS) -->
+        <div id="judgement-feedback"></div>
+
+        <!-- 4 colunas de notas -->
+        <div class="lane" data-direction="left">
+          <div class="notes-container" id="lane-left"></div>
+          <div class="receptor-wrapper">
+            <img class="receptor" id="receptor-left" src="seta sem cor esquerda.png" alt="esquerda">
+          </div>
+        </div>
+
+        <div class="lane" data-direction="down">
+          <div class="notes-container" id="lane-down"></div>
+          <div class="receptor-wrapper">
+            <img class="receptor" id="receptor-down" src="seta sem cor baixo.png" alt="baixo">
+          </div>
+        </div>
+
+        <div class="lane" data-direction="up">
+          <div class="notes-container" id="lane-up"></div>
+          <div class="receptor-wrapper">
+            <img class="receptor" id="receptor-up" src="seta sem cor cima.png" alt="cima">
+          </div>
+        </div>
+
+        <div class="lane" data-direction="right">
+          <div class="notes-container" id="lane-right"></div>
+          <div class="receptor-wrapper">
+            <img class="receptor" id="receptor-right" src="seta sem cor direita.png" alt="direita">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Overlay de Pausa -->
+    <div id="pause-overlay" class="hidden">
+      <!-- Controle de Volume no canto superior direito -->
+      <div id="volume-control">
+        <span id="volume-icon" title="Mutar/Desmutar">&#128266;</span>
+        <input type="range" id="volume-slider" min="0" max="100" value="100">
+        <span id="volume-value">100%</span>
+      </div>
+
+      <!-- Conteúdo Central: Botão Menu -->
+      <div id="pause-content">
+        <img id="menu-btn" src="menu.png" alt="Voltar ao Menu">
+      </div>
+    </div>
+
+    <!-- Overlay de Resultado (fim da música) -->
+    <div id="result-overlay" class="hidden">
+      <div id="result-content">
+        <div id="result-title">RESULTADO</div>
+        <div id="result-score-label">PONTUAÇÃO</div>
+        <div id="result-score-value">0</div>
+        <div id="result-combo-label">MAIOR COMBO</div>
+        <div id="result-combo-value">0</div>
+        <img id="result-menu-btn" src="menu.png" alt="Voltar ao Menu">
+      </div>
+    </div>
+
+  </div>
+
+  <audio id="bg-music" src="Day 1 - Red Velvet [8-bit cover] - Soshu (youtube).mp3"></audio>
+
+  <script src="charts/day1.js"></script>
+  <script src="charts/bocchi.js"></script>
+  <script src="charts/popin2.js"></script>
+  <script src="script.js"></script>
+  <script src="songs.js"></script>
+  <script src="pause.js"></script>
+  <script src="result.js"></script>
+</body>
+</html>

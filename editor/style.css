@@ -1,0 +1,481 @@
+/* ===================================================
+   RESET & BASE
+   =================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #1a1a2e;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================================================
+   UTILITY
+   =================================================== */
+.hidden {
+  display: none !important;
+}
+
+/* ===================================================
+   BUTTONS
+   =================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e0e0e0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: rgba(123, 63, 141, 0.4);
+  border-color: rgba(180, 120, 200, 0.5);
+}
+
+.btn-primary:hover {
+  background: rgba(123, 63, 141, 0.6);
+}
+
+.btn-save {
+  background: rgba(46, 125, 50, 0.35);
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+.btn-save:hover {
+  background: rgba(46, 125, 50, 0.55);
+}
+
+.btn-danger {
+  background: rgba(198, 40, 40, 0.3);
+  border-color: rgba(239, 83, 80, 0.5);
+}
+
+.btn-danger:hover {
+  background: rgba(198, 40, 40, 0.5);
+}
+
+.btn-test {
+  background: rgba(255, 179, 0, 0.25);
+  border-color: rgba(255, 179, 0, 0.5);
+}
+
+.btn-test:hover {
+  background: rgba(255, 179, 0, 0.45);
+}
+
+kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  color: #ccc;
+}
+
+/* ===================================================
+   TOOLBAR
+   =================================================== */
+#toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #16162a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-group {
+  flex: 1;
+  justify-content: center;
+}
+
+.time-display {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+  color: #b0b0b0;
+  min-width: 90px;
+  text-align: center;
+}
+
+#seek-bar {
+  flex: 1;
+  max-width: 400px;
+  height: 6px;
+  accent-color: #7B3F8D;
+  cursor: pointer;
+}
+
+/* ===================================================
+   INFO BAR
+   =================================================== */
+#info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px;
+  background: #12122a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 12px;
+  color: #888;
+  flex-shrink: 0;
+}
+
+#note-count {
+  color: #b8a0d0;
+  font-weight: 600;
+}
+
+#selected-info {
+  color: #FFD700;
+}
+
+/* ===================================================
+   INSTRUCTIONS
+   =================================================== */
+#instructions {
+  padding: 6px 16px;
+  background: rgba(123, 63, 141, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ===================================================
+   EDITOR AREA
+   =================================================== */
+#editor-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Lane headers */
+#lane-headers {
+  display: flex;
+  height: 40px;
+  background: #16162a;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.lane-hdr {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.lh-left  { color: #FF6B6B; }
+.lh-down  { color: #4ECDC4; }
+.lh-up    { color: #45B7D1; }
+.lh-right { color: #96CEB4; }
+
+/* Timeline scrollable container */
+#timeline-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+#timeline {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  background: #1a1a2e;
+}
+
+/* Grid lines (every second) */
+.grid-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+.grid-line.major {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Time labels on grid */
+.grid-label {
+  position: absolute;
+  left: 4px;
+  font-size: 10px;
+  font-family: 'Consolas', monospace;
+  color: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Lane dividers */
+.lane-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+/* Playback cursor */
+#playback-cursor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #FFD700;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+  z-index: 100;
+  pointer-events: none;
+  top: 0;
+}
+
+/* ===================================================
+   NOTE MARKERS
+   =================================================== */
+.note-marker {
+  position: absolute;
+  width: calc(25% - 16px);
+  height: 28px;
+  margin: 0 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: outline 0.1s, box-shadow 0.1s;
+  z-index: 10;
+  user-select: none;
+}
+
+.note-marker:hover {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.note-marker.selected {
+  outline: 2px solid #FFD700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+  z-index: 20;
+}
+
+/* Colors per direction */
+.note-marker.dir-left {
+  left: 0;
+  background: rgba(255, 107, 107, 0.35);
+  border: 1px solid rgba(255, 107, 107, 0.6);
+  color: #FF6B6B;
+}
+
+.note-marker.dir-down {
+  left: 25%;
+  background: rgba(78, 205, 196, 0.35);
+  border: 1px solid rgba(78, 205, 196, 0.6);
+  color: #4ECDC4;
+}
+
+.note-marker.dir-up {
+  left: 50%;
+  background: rgba(69, 183, 209, 0.35);
+  border: 1px solid rgba(69, 183, 209, 0.6);
+  color: #45B7D1;
+}
+
+.note-marker.dir-right {
+  left: 75%;
+  background: rgba(150, 206, 180, 0.35);
+  border: 1px solid rgba(150, 206, 180, 0.6);
+  color: #96CEB4;
+}
+
+/* Arrow symbols inside note markers */
+.note-marker.dir-left::after  { content: '←'; }
+.note-marker.dir-down::after  { content: '↓'; }
+.note-marker.dir-up::after    { content: '↑'; }
+.note-marker.dir-right::after { content: '→'; }
+
+/* ===================================================
+   TEST MODE OVERLAY
+   =================================================== */
+#test-overlay {
+  position: fixed;
+  inset: 0;
+  background: #111;
+  z-index: 5000;
+  display: flex;
+  flex-direction: column;
+}
+
+#test-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #0a0a1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFB300;
+  letter-spacing: 3px;
+  flex-shrink: 0;
+}
+
+#test-game-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 20px;
+  position: relative;
+}
+
+.test-lane {
+  position: relative;
+  width: 90px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 40px;
+}
+
+.test-notes-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.test-receptor {
+  width: 80px;
+  height: 80px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.test-note {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.test-note.dir-left {
+  background: rgba(255, 107, 107, 0.6);
+  border: 2px solid #FF6B6B;
+  color: #fff;
+}
+.test-note.dir-left::after { content: '←'; }
+
+.test-note.dir-down {
+  background: rgba(78, 205, 196, 0.6);
+  border: 2px solid #4ECDC4;
+  color: #fff;
+}
+.test-note.dir-down::after { content: '↓'; }
+
+.test-note.dir-up {
+  background: rgba(69, 183, 209, 0.6);
+  border: 2px solid #45B7D1;
+  color: #fff;
+}
+.test-note.dir-up::after { content: '↑'; }
+
+.test-note.dir-right {
+  background: rgba(150, 206, 180, 0.6);
+  border: 2px solid #96CEB4;
+  color: #fff;
+}
+.test-note.dir-right::after { content: '→'; }
+
+/* ===================================================
+   SCROLLBAR
+   =================================================== */
+#timeline-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+#timeline-scroll::-webkit-scrollbar-track {
+  background: #12122a;
+}
+
+#timeline-scroll::-webkit-scrollbar-thumb {
+  background: rgba(123, 63, 141, 0.5);
+  border-radius: 5px;
+}
+
+#timeline-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(123, 63, 141, 0.7);
+}
